@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+/*이기찬*/
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>도서 관리 시스템 - 관리자</title>
+        <style>
+            /* 가운데 정렬 스타일 */
+            body {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                min-height: 100vh;
+                margin: 0;
+            }
+        </style>
+    </head>
+<body>
+    <h1>도서 관리 시스템 - 관리자</h1>
+
+    <h2>멤버 추가</h2>
+    <form method="POST" action="/admin">
+        <label for="new_member_name">이름:</label>
+        <input type="text" id="new_member_name" name="new_member_name" required>
+        <label for="new_member_phone">전화번호:</label>
+        <input type="text" id="new_member_phone" name="new_member_phone" required>
+        <button type="submit">멤버 추가</button>
+    </form>
+
+    <h2>멤버 삭제</h2>
+    <form method="POST" action="/admin">
+        <label for="member_name_to_remove">이름:</label>
+        <input type="text" id="member_name_to_remove" name="member_name_to_remove" required>
+        <button type="submit">멤버 삭제</button>
+    </form>
+
+    <h2>책 추가</h2>
+    <form method="POST" action="/admin">
+        <label for="new_book_title">제목:</label>
+        <input type="text" id="new_book_title" name="new_book_title" required>
+        <button type="submit">책 추가</button>
+    </form>
+
+    <h2>책 삭제</h2>
+    <form method="POST" action="/admin">
+        <label for="book_title_to_remove">제목:</label>
+        <input type="text" id="book_title_to_remove" name="book_title_to_remove" required>
+        <button type="submit">책 삭제</button>
+    </form>
+
+    <h2>책 대출</h2>
+    <form method="POST" action="/admin">
+        <label for="member_name">멤버 이름:</label>
+        <input type="text" id="member_name" name="member_name" required>
+        <label for="book_title">책 제목:</label>
+        <input type="text" id="book_title" name="book_title" required>
+        <button type="submit" name="borrow">책 대출</button>
+    </form>
+
+    <h2>책 반납</h2>
+    <form method="POST" action="/admin">
+        <label for="member_name">멤버 이름:</label>
+        <input type="text" id="member_name" name="member_name" required>
+        <label for="book_title">책 제목:</label>
+        <input type="text" id="book_title" name="book_title" required>
+        <button type="submit" name="return">책 반납</button>
+    </form>
+
+    <!-- 멤버 정보 -->
+    <h2>멤버 정보</h2>
+    <ul>
+        {% for member, info in members.items() %}
+            <li>{{ member }} (전화번호: {{ info['phone'] }})</li>
+        {% endfor %}
+    </ul>
+
+    <!-- 책 상태 정보 -->
+    <h2>책 상태 정보</h2>
+    <ul>
+        {% for book, status in books.items() %}
+            <li>{{ book }} (상태: {{ status }})</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

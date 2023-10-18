@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Upload and Analysis</title>
+</head>
+<body>
+    <h1>Upload and Analyze an Image</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" id="fileInput"> <!-- 추가: id를 부여하여 JavaScript에서 참조 -->
+        <input type="submit" value="Upload and Analyze">
+    </form>
+    <div id="resultArea"></div> <!-- 분석 결과를 표시할 영역 -->
+
+    <script>
+        // JavaScript 코드 추가: 이미지 업로드 후 이미지를 숨기지 않도록 함
+        document.getElementById('fileInput').addEventListener('change', function () {
+            var resultArea = document.getElementById('resultArea');
+            resultArea.innerHTML = ''; // 결과를 지우지 않도록 설정
+
+            var fileInput = document.getElementById('fileInput');
+            var file = fileInput.files[0];
+
+            // FormData를 사용하여 이미지를 서버로 업로드
+            var formData = new FormData();
+            formData.append('file', file);
+
+            fetch('/', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // 분석 결과를 표시
+                resultArea.innerHTML = 'Analysis Result: ' + data.result;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
